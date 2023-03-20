@@ -1,5 +1,5 @@
 {
-	"name": "Birthday Bot",
+	"name": "server",
 	"version": "1.0.0",
 	"description": "A bot for sending birthday messages on Groupme",
 	"main": "index.js",
