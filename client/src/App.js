@@ -6,7 +6,7 @@ function App() {
 	const [data, setData] = React.useState(null);
 
 	useEffect(() => {
-		fetch("birthdaybot.dev/api")
+		fetch("https://birthdaybot.dev/api")
 			.then((res) => res.json())
 			.then((data) => setData(data.message));
 	}, []);
