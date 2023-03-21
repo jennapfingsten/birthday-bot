@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import "./App.css";
 
 //TODO: switch between these
-const prodUrl = "https://birthdaybot.dev/api";
+const prodUrl = "https://api.birthdaybot.dev/api";
 const devUrl = "http://localhost:3001/api";
 
 function App() {
