@@ -2,11 +2,15 @@ import React from "react";
 import { useEffect } from "react";
 import "./App.css";
 
+//TODO: switch between these
+const prodUrl = "https://birthdaybot.dev/api";
+const devUrl = "http://localhost:3001/api";
+
 function App() {
 	const [data, setData] = React.useState(null);
 
 	useEffect(() => {
-		fetch("https://birthdaybot.dev/api")
+		fetch(prodUrl)
 			.then((res) => res.json())
 			.then((data) => setData(data.message));
 	}, []);
