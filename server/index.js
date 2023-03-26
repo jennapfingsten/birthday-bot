@@ -13,7 +13,10 @@ const app = express();
 
 main().catch((err) => console.log(err));
 async function main() {
-	await mongoose.connect(process.env.MONGO_DB);
+	await mongoose.connect(process.env.MONGO_DB).catch((e) => {
+		console.log(e);
+	});
+	console.log("should be connected");
 }
 
 app.use(cors());
