@@ -1,24 +1,30 @@
-import React from "react";
-import { useEffect } from "react";
 import "./App.css";
+import { useState } from "react";
+import BirthdayForm from "./components/BirthdayForm";
+import BirthdayList from "./components/BirthdayList";
 
-//TODO: switch between these
-const prodUrl = "https://api.birthdaybot.dev/api";
-const devUrl = "http://localhost:3001/api";
+//The fetchResponse and sendTodayHandler is only for demo purposes
+
+const sendEndpoint = process.env.REACT_APP_SERVER_URL + "/messages";
 
 function App() {
-	const [data, setData] = React.useState(null);
+	const [fetchResponse, setFetchResponse] = useState("");
 
-	useEffect(() => {
-		fetch(prodUrl)
-			.then((res) => res.json())
-			.then((data) => setData(data.message));
-	}, []);
+	const sendTodayHandler = () => {
+		fetch(sendEndpoint, {
+			method: "POST",
+		})
+			.then((response) => response.json())
+			.then((response) => setFetchResponse(response.message));
+	};
 
 	return (
 		<div className="App">
 			<header className="App-header">
-				<p>{!data ? "Loading..." : data}</p>
+				<button onClick={sendTodayHandler}>Send messages for today!</button>
+				{fetchResponse && <p>{fetchResponse}</p>}
+				<BirthdayForm />
+				<BirthdayList />
 			</header>
 		</div>
 	);
