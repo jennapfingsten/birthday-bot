@@ -1,4 +1,5 @@
 const express = require("express");
+const axios = require("axios");
 const router = express.Router();
 const BotEntry = require("../schemas/Bots");
 const BirthdayEntry = require("../schemas/Birthdays");
@@ -41,31 +42,13 @@ const createMessage = (name, message) => {
 };
 
 const sendMessage = (apiKey, message) => {
-	const body = {
-		bot_id: apiKey,
-		text: message,
-	};
-
-	fetch(groupmeEndpoint, {
-		method: "POST",
-		headers: {
-			Accept: "application/json",
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(body),
-	})
-		.then((response) => {
-			if (!response.ok) {
-				return response.json();
-			}
+	axios
+		.post(groupmeEndpoint, {
+			bot_id: apiKey,
+			text: message,
 		})
-		.then((resp) => {
-			if (resp) {
-				console.log(resp.meta.errors);
-			} else {
-				console.log("Message sent!");
-			}
-		});
+		.then((response) => console.log(response))
+		.catch((err) => console.log(err));
 };
 
 module.exports = router;
