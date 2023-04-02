@@ -2,7 +2,22 @@ import { useEffect, useState } from "react";
 
 const birthdayEndpoint = process.env.REACT_APP_SERVER_URL + "/birthdays";
 
-const BirthdayList = () => {
+const months = [
+	"January",
+	"February",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December",
+];
+
+const BirthdayList = (props) => {
 	const [birthdays, setBirthdays] = useState(null);
 
 	const fetchBirthdays = async () => {
@@ -11,14 +26,13 @@ const BirthdayList = () => {
 		fetch(birthdayEndpoint)
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data);
 				setBirthdays(data);
 			});
 	};
 
 	useEffect(() => {
 		fetchBirthdays();
-	}, []);
+	}, [props.refresh]);
 
 	let fetchedBirthdayContent = <p>Loading...</p>;
 	if (birthdays) {
@@ -26,7 +40,7 @@ const BirthdayList = () => {
 			<div>
 				{birthdays.map((bday) => (
 					<p key={bday._id}>
-						{bday.name}, {bday.month + 1}-{bday.day}
+						{bday.name}, {months[bday.month - 1]} {bday.day}
 					</p>
 				))}
 			</div>

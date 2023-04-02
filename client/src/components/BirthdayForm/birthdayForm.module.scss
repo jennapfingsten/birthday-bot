@@ -1,0 +1,48 @@
+.formContainer {
+}
+
+.form {
+}
+
+.inputRow {
+	margin: 20px 0;
+	label {
+		display: block;
+	}
+}
+.fieldsetRow {
+	display: flex;
+	height: 30px;
+	:nth-child(2) {
+		margin-right: 10px;
+	}
+}
+
+fieldset {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	legend {
+		padding: 0;
+	}
+}
+
+textarea {
+	font-family: var(--font-family);
+	width: 100%;
+	height: 100px;
+}
+
+.submitBtn {
+	display: block;
+	margin: 0 auto;
+	width: 200px;
+	border: 0;
+	padding: 10px 20px;
+	background: var(--main-color);
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	border-radius: 6px;
+	cursor: pointer;
+}
