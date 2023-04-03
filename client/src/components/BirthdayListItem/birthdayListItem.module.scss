@@ -1,0 +1,22 @@
+.row {
+	border-bottom: 1px solid black;
+	padding: 15px 5px;
+}
+
+.data {
+	display: flex;
+	justify-content: space-between;
+}
+.name {
+	font-size: 20px;
+}
+.secondRow {
+	background-color: #e1e1e1;
+	padding: 10px;
+}
+.actionItems {
+	span {
+		margin: 0 5px;
+		font-size: 17px;
+	}
+}

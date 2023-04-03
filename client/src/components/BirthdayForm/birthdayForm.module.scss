@@ -1,13 +1,12 @@
-.formContainer {
-}
-
-.form {
-}
-
 .inputRow {
 	margin: 20px 0;
 	label {
 		display: block;
+	}
+	input,
+	textarea,
+	select {
+		font-size: 15px;
 	}
 }
 .fieldsetRow {
@@ -33,16 +32,24 @@ textarea {
 	height: 100px;
 }
 
-.submitBtn {
+.button {
 	display: block;
-	margin: 0 auto;
-	width: 200px;
-	border: 0;
+	margin: 10px auto;
 	padding: 10px 20px;
-	background: var(--main-color);
-	color: white;
 	font-size: 18px;
 	font-weight: bold;
 	border-radius: 6px;
 	cursor: pointer;
+}
+
+.submit {
+	width: 200px;
+	background: var(--main-color);
+	color: white;
+}
+
+.cancel {
+	width: 150px;
+	background: var(--cancel-bg-color);
+	color: var(--cancel-font-color);
 }

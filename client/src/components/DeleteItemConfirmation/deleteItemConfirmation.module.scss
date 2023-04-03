@@ -1,0 +1,19 @@
+.deleteRow {
+	text-align: center;
+	button {
+		width: 75px;
+		border-radius: 20px;
+		border: 0;
+		text-transform: uppercase;
+		font-weight: bold;
+		line-height: 30px;
+	}
+	.confirm {
+		background-color: var(--main-color);
+		color: white;
+	}
+	.cancel {
+		background-color: var(--cancel-bg-color);
+		color: var(--cancel-font-color);
+	}
+}

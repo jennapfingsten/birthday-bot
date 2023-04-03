@@ -3,6 +3,10 @@ const router = express.Router();
 const BirthdayEntry = require("../schemas/Birthdays");
 const BotEntry = require("../schemas/Bots");
 
+const sendError = (message) => {
+	res.status(500).json({ message: message });
+};
+
 router.use((req, res, next) => {
 	//Do any middleware for /birthdays
 	next();
@@ -13,7 +17,7 @@ router.get("/", async (req, res) => {
 		const birthdayEntries = await BirthdayEntry.find();
 		res.json(birthdayEntries);
 	} catch (e) {
-		res.status(500).json({ message: e.message });
+		sendError(e.message);
 	}
 });
 
@@ -31,7 +35,17 @@ router.post("/", async (req, res) => {
 
 		res.json({ message: "Saved entry: " + JSON.stringify(birthdayEntry) });
 	} catch (e) {
-		res.status(500).json({ message: e.message });
+		sendError(e.message);
+	}
+});
+
+router.delete("/:id", async (req, res) => {
+	try {
+		const birthdayId = req.params.id;
+		await BirthdayEntry.deleteOne({ _id: birthdayId });
+		res.json({ message: "Successfully deleted" });
+	} catch (e) {
+		sendError(e.message);
 	}
 });
 

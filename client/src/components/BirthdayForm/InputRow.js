@@ -4,7 +4,9 @@ const InputRow = (props) => {
 	const { labelFor, labelMessage, children } = props;
 	return (
 		<div className={styles.inputRow}>
-			{labelFor && labelMessage && <label for={labelFor}>{labelMessage}</label>}
+			{labelFor && labelMessage && (
+				<label htmlFor={labelFor}>{labelMessage}</label>
+			)}
 			{children}
 		</div>
 	);

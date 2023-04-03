@@ -1,12 +1,11 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useId } from "react";
 import styles from "./birthdayForm.module.scss";
-import InputRow from "./Input";
-
-const botId = "64209ad754a343796fe56235"; //Placeholder. This is a dummy botId for testing. This will move to the app state later
-const birthdayEndpoint = process.env.REACT_APP_SERVER_URL + "/birthdays";
+import InputRow from "./InputRow";
 
 const BirthdayForm = (props) => {
+	const id = useId();
+
 	const [name, setName] = useState("");
 	const [message, setMessage] = useState("");
 	const [month, setMonth] = useState("");
@@ -21,21 +20,15 @@ const BirthdayForm = (props) => {
 			month: month,
 			day: day,
 			message: message,
-			bot: botId,
 		};
 
-		fetch(birthdayEndpoint, {
-			method: "POST",
-			headers: {
-				Accept: "application/json",
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(newBirthday),
-		})
-			.then((response) => response.json())
-			.then((response) => {
-				resetForm();
-			});
+		props.onSubmit(newBirthday);
+		resetForm();
+	};
+
+	const cancelFormHandler = (e) => {
+		resetForm();
+		props.onCancel?.();
 	};
 
 	const resetForm = () => {
@@ -43,18 +36,15 @@ const BirthdayForm = (props) => {
 		setMonth("");
 		setDay("");
 		setMessage("");
-		props.onFormSubmit();
 	};
 
 	return (
 		<div>
-			<h1>Enter in a birthday!</h1>
-
 			<form className={styles.form} onSubmit={birthdayFormSubmitHandler}>
-				<InputRow labelMessage="Name" labelFor="name">
+				<InputRow labelMessage="Name" labelFor={`name_${id}`}>
 					<input
 						type="text"
-						id="name"
+						id={`name_${id}`}
 						name="name"
 						value={name}
 						placeholder="First Name"
@@ -68,12 +58,12 @@ const BirthdayForm = (props) => {
 						<legend>Birthday</legend>
 
 						<div className={styles.fieldsetRow}>
-							<label htmlFor="month" className="srOnly">
+							<label htmlFor={`month_${id}`} className="srOnly">
 								Month
 							</label>
 							<select
 								onChange={(e) => setMonth(e.target.value)}
-								id="month"
+								id={`month_${id}`}
 								value={month}
 							>
 								<option value="" disabled>
@@ -93,12 +83,12 @@ const BirthdayForm = (props) => {
 								<option value="12">December</option>
 							</select>
 
-							<label htmlFor="day" className="srOnly">
+							<label htmlFor={`day_${id}`} className="srOnly">
 								Day
 							</label>
 							<select
 								onChange={(e) => setDay(e.target.value)}
-								id="day"
+								id={`day_${id}`}
 								value={day}
 							>
 								<option value="" disabled>
@@ -116,18 +106,9 @@ const BirthdayForm = (props) => {
 					</fieldset>
 				</InputRow>
 
-				{/* <InputRow
-					label="Custom Message (optional)"
-					type="text"
-					id="message"
-					name="message"
-					value={message}
-					placeholder="Message"
-					onChange={(e) => setMessage(e.target.value)}
-				/> */}
-				<InputRow labelFor="message" labelMessage="Custom message">
+				<InputRow labelFor={`message_${id}`} labelMessage="Custom message">
 					<textarea
-						id="message"
+						id={`message_${id}`}
 						name="message"
 						value={message}
 						placeholder="Message"
@@ -135,8 +116,15 @@ const BirthdayForm = (props) => {
 					/>
 				</InputRow>
 
-				<button className={styles.submitBtn} type="submit">
+				<button className={`${styles.button} ${styles.submit}`} type="submit">
 					Submit
+				</button>
+				<button
+					className={`${styles.button} ${styles.cancel}`}
+					type="button"
+					onClick={cancelFormHandler}
+				>
+					Cancel
 				</button>
 			</form>
 		</div>

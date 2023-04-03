@@ -1,21 +1,7 @@
 import { useEffect, useState } from "react";
+import BirthdayListItem from "../BirthdayListItem";
 
 const birthdayEndpoint = process.env.REACT_APP_SERVER_URL + "/birthdays";
-
-const months = [
-	"January",
-	"February",
-	"March",
-	"April",
-	"May",
-	"June",
-	"July",
-	"August",
-	"September",
-	"October",
-	"November",
-	"December",
-];
 
 const BirthdayList = (props) => {
 	const [birthdays, setBirthdays] = useState(null);
@@ -39,9 +25,7 @@ const BirthdayList = (props) => {
 		fetchedBirthdayContent = (
 			<div>
 				{birthdays.map((bday) => (
-					<p key={bday._id}>
-						{bday.name}, {months[bday.month - 1]} {bday.day}
-					</p>
+					<BirthdayListItem key={bday._id} birthday={bday} />
 				))}
 			</div>
 		);

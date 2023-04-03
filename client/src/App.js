@@ -1,6 +1,6 @@
-import "./App.css";
+import "./App.scss";
 import { useState } from "react";
-import BirthdayForm from "./components/BirthdayForm";
+import NewBirthday from "./components/NewBirthday";
 import BirthdayList from "./components/BirthdayList";
 import Card from "./components/Shared/Card";
 
@@ -18,7 +18,7 @@ function App() {
 			</header>
 			<main>
 				<Card>
-					<BirthdayForm onFormSubmit={forceListToRefresh} />
+					<NewBirthday onFormSubmit={forceListToRefresh} />
 				</Card>
 				<Card>
 					<BirthdayList refresh={refreshList} />
