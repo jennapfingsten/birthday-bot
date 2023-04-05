@@ -5,6 +5,7 @@ const deleteBirthdayEndpoint = process.env.REACT_APP_SERVER_URL + "/birthdays/";
 const DeleteItemConfirmation = (props) => {
 	const endpoint = deleteBirthdayEndpoint + props.itemId;
 
+	//TODO: add botId validation
 	const confirmDeleteItemHandler = () => {
 		fetch(endpoint, {
 			method: "DELETE",
