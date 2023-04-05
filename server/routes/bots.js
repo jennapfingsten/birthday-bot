@@ -5,7 +5,6 @@ const BotEntry = require("../schemas/Bots");
 router.post("/", async (req, res) => {
 	try {
 		const botEntry = new BotEntry({
-			owner: req.body.owner,
 			apiKey: req.body.apiKey,
 		});
 

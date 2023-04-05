@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const birthdays = require("./routes/birthdays");
 const bots = require("./routes/bots");
 const messages = require("./routes/messages");
+const login = require("./routes/login");
 
 const PORT = process.env.PORT || 3001;
 
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use("/birthdays", birthdays);
 app.use("/bots", bots);
 app.use("/messages", messages);
+app.use("/login", login);
 
 // All other GET requests not handled before will return a basic page
 app.get("*", (req, res) => {

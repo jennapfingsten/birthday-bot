@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import BirthdayListItem from "../BirthdayListItem";
+import { UserContext } from "../../context/UserContext";
 
-const birthdayEndpoint = process.env.REACT_APP_SERVER_URL + "/birthdays";
+const birthdayEndpoint = process.env.REACT_APP_SERVER_URL + "/birthdays/";
 
 const BirthdayList = (props) => {
+	const { user, setUser } = useContext(UserContext);
 	const [birthdays, setBirthdays] = useState(null);
 
 	const fetchBirthdays = async () => {
 		//Need to also handle loading states
 		//And errors, etc
-		fetch(birthdayEndpoint)
+		fetch(birthdayEndpoint + user.userId)
 			.then((res) => res.json())
 			.then((data) => {
 				setBirthdays(data);

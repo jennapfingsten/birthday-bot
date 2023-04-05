@@ -19,7 +19,7 @@ const birthdaySchema = new Schema({
 		required: true,
 	},
 	message: String,
-	bot: { type: Schema.Types.ObjectId, ref: "Bot", required: true },
+	user: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
 module.exports = mongoose.model("Birthday", birthdaySchema);

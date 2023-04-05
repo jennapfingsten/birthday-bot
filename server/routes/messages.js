@@ -3,9 +3,9 @@ const axios = require("axios");
 const router = express.Router();
 const BotEntry = require("../schemas/Bots");
 const BirthdayEntry = require("../schemas/Birthdays");
+const UserEntry = require("../schemas/Users");
 
 const groupmeEndpoint = "https://api.groupme.com/v3/bots/post";
-const apiKey = process.env.GROUPME_API_KEY;
 
 router.post("/", async (req, res) => {
 	try {
@@ -16,10 +16,16 @@ router.post("/", async (req, res) => {
 		const day = today.getDate();
 		const birthdaysToday = await searchForBirthday(month, day);
 
-		birthdaysToday.map((birthday) => {
+		birthdaysToday.map(async (birthday) => {
 			//Do some validations
-			//Get the botId
-			sendMessage(apiKey, createMessage(birthday.name, birthday.message));
+
+			const user = await searchForUser(birthday);
+			if (user.apiKey) {
+				sendMessage(
+					user.apiKey,
+					createMessage(birthday.name, birthday.message)
+				);
+			}
 		});
 
 		res.json({
@@ -31,13 +37,16 @@ router.post("/", async (req, res) => {
 });
 
 const searchForBirthday = async (month, day) => {
-	console.log("Searching for a birthday on " + month + " " + day);
 	return BirthdayEntry.find({ month: month, day: day });
+};
+
+const searchForUser = async (birthday) => {
+	return UserEntry.findOne(birthday.user);
 };
 
 const createMessage = (name, message) => {
 	if (message) return message;
-	let templateMessage = "Happy birthday {name}! You're great!";
+	let templateMessage = "Happy birthday {name}! Hope you have a great day!";
 	return templateMessage.replace("{name}", name);
 };
 

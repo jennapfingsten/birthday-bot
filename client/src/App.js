@@ -15,8 +15,8 @@ function App() {
 	};
 
 	useEffect(() => {
-		if (localStorage.birthdayUser != null) {
-			setUser(JSON.parse(localStorage.birthdayUser));
+		if (localStorage.user) {
+			setUser(JSON.parse(localStorage.user));
 		}
 	}, [setUser]);
 
@@ -29,12 +29,16 @@ function App() {
 				<UserContext.Provider value={{ user, setUser }}>
 					<Login />
 
-					<Card>
-						<NewBirthday onFormSubmit={forceListToRefresh} />
-					</Card>
-					<Card>
-						<BirthdayList refresh={refreshList} />
-					</Card>
+					{user && (
+						<>
+							<Card>
+								<NewBirthday onFormSubmit={forceListToRefresh} />
+							</Card>
+							<Card>
+								<BirthdayList refresh={refreshList} />
+							</Card>
+						</>
+					)}
 				</UserContext.Provider>
 			</main>
 		</div>

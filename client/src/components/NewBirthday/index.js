@@ -2,14 +2,13 @@ import React, { useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import BirthdayForm from "../BirthdayForm";
 
-const botId = "64209ad754a343796fe56235"; //Placeholder. This is a dummy botId for testing. This will move to the app state later
 const birthdayEndpoint = process.env.REACT_APP_SERVER_URL + "/birthdays";
 
 const NewBirthday = (props) => {
 	const { user } = useContext(UserContext);
 
 	const createNewBirthday = (newBirthday) => {
-		newBirthday.bot = botId;
+		newBirthday.user = user.userId;
 
 		fetch(birthdayEndpoint, {
 			method: "POST",
